@@ -1,5 +1,6 @@
 import { fetch } from "../../util/fetchShim";
 import { getTransactionSchema } from "./schema";
+import faker from "faker";
 import FormData from "form-data";
 
 // Data required in GET /deposit or /withdraw request for each anchor
@@ -19,6 +20,30 @@ const anchorRequestData = {
       email_address: "email@email.com",
       bank_number: "fake bank routing number",
       bank_account_number: "fake bank number",
+    },
+  },
+  clickpesa: {
+    deposit: {
+      type: "bank_account",
+      amount: "6000",
+    },
+    withdraw: {
+      type: "bank_account",
+      dest: faker.finance.account(),
+      payout_channel_provider: faker.company.companyName(),
+      payout_address_name: faker.finance.accountName(),
+      routing_number: faker.finance.routingNumber(),
+      amount: "10000",
+    },
+    kyc: {
+      first_name: faker.name.firstName(),
+      last_name: faker.name.lastName(),
+      email_address: faker.internet.email(),
+      mobile_number: faker.phone.phoneNumber(),
+      type: "individual",
+      id_type: "NIDA",
+      id_number: faker.datatype.uuid(),
+      photo_id_front: "http://image.url",
     },
   },
 };

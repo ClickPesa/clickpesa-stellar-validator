@@ -98,12 +98,13 @@ describe("Deposit", () => {
   });
 
   it("returns 200 Success or 403 customer_info_status after PUT request to KYC server", async () => {
+    const account = keyPair.publicKey();
     if (toml.KYC_SERVER) {
-      await putKYCInfo({ toml: toml, account: keyPair.publicKey(), jwt: jwt });
+      await putKYCInfo({ toml: toml, account, jwt: jwt });
     }
     const { status, json } = await createTransaction({
       currency: enabledCurrency,
-      account: keyPair.publicKey(),
+      account,
       jwt: jwt,
       toml: toml,
       isDeposit: true,
